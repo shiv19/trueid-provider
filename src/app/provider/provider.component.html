@@ -1,0 +1,62 @@
+<div class="col-md-8 offset-md-2">
+    <h4 class="mb-3">Verify User's Identity</h4>
+    <form class="needs-validation" (ngSubmit)="onSave(f.value)" #f="ngForm">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label for="address">Scan User's QR Code</label>
+                <div *ngIf="availableDevices">
+                    <select (change)="onDeviceSelectChange($event.target.value)">
+                        <option value="" [selected]="!selectedDevice">No Device</option>
+                        <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="selectedDevice && device.deviceId === selectedDevice.deviceId">{{ device.label }}</option>
+                    </select>
+                </div>
+
+                <div [hidden]="!hasCameras">
+
+                    <zxing-scanner #scanner [autofocusEnabled]="true" [cssClass]="'small-video'" start="true" [device]="selectedDevice" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner>
+
+                    <h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
+
+                    <p>
+                        Eth Address:
+                        <input type="text" class="form-control" name="address" placeholder="" [(ngModel)]="provider.address" required>
+                    </p>
+
+                </div>
+
+                <div *ngIf="!hasCameras && hasPermission === true">
+
+                    <h1>Looks like your actual device does not has cameras, or I could no find'em. </h1>
+
+                </div>
+
+                <div *ngIf="hasPermission === undefined">
+
+                    <h1>Waiting for permissions.</h1>
+
+                    <blockquote>
+                        <h2>If your device does not has cameras, no permissions will be asked.</h2>
+                    </blockquote>
+
+                </div>
+
+                <div *ngIf="hasPermission === false">
+
+                    <h1>You denied the camera permissions, we can't scan anything without it. 😪</h1>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <p>Get User Details by clicking buttons below</p>
+                <button class="btn btn-primary" type="button">Name</button>
+                <button class="btn btn-primary" type="button">Age</button>
+                <button class="btn btn-primary" type="button">Nationality</button>
+                <button class="btn btn-primary" type="button">Gender</button>
+                <button class="btn btn-primary" type="button">Address</button>
+            </div>
+        </div>
+    </form>
+</div>
