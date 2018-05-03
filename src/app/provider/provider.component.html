@@ -19,7 +19,7 @@
 
                     <p>
                         Eth Address:
-                        <input type="text" class="form-control" name="address" placeholder="" [(ngModel)]="provider.address" required>
+                        <input type="text" class="form-control" name="address" placeholder="" [(ngModel)]="userAddress" required>
                     </p>
 
                 </div>
@@ -50,12 +50,15 @@
 
         <div class="row">
             <div class="col-md-12 mb-3">
-                <p>Get User Details by clicking buttons below</p>
-                <button class="btn btn-primary" type="button">Name</button>
-                <button class="btn btn-primary" type="button">Age</button>
-                <button class="btn btn-primary" type="button">Nationality</button>
-                <button class="btn btn-primary" type="button">Gender</button>
-                <button class="btn btn-primary" type="button">Address</button>
+                <p>Get User Details by clicking the button below</p>
+                <button class="btn btn-primary" (click)="onGetDetails()" type="button">Get Details</button>
+                <p>Name: {{ user.fullName }}</p>
+                <p>Gender: {{ user.gender }}</p>
+                <p>Father Name: {{ user.fatherName }}</p>
+                <p>Mother Name: {{ user.motherName }}</p>
+                <p>Address: {{ user.contactAddress }}</p>
+                <p>Birthdate: {{ user.birthdate }}</p>
+                <p>Country: {{ user.country }}</p>
             </div>
         </div>
     </form>

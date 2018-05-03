@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ProviderComponent implements OnInit {
 
-  provider: any = {};
+    userAddress: string;
     @ViewChild('scanner') scanner: ZXingScannerComponent;
     hasCameras = false;
     hasPermission: boolean;
@@ -24,6 +24,8 @@ export class ProviderComponent implements OnInit {
     selectedDevice: MediaDeviceInfo;
 
     addresses: any;
+
+    user: any;
 
     constructor(private router: Router) {}
 
@@ -58,7 +60,7 @@ export class ProviderComponent implements OnInit {
     }
 
     handleQrCodeResult(resultString: string) {
-        this.provider.address = resultString;
+        this.userAddress = resultString;
     }
 
     onDeviceSelectChange(selectedValue: string) {
@@ -66,20 +68,15 @@ export class ProviderComponent implements OnInit {
         this.selectedDevice = this.scanner.getDeviceById(selectedValue);
     }
 
-    async onSave(provider) {
-
-        const providers = JSON.parse(localStorage.getItem('providers'));
-        providers.push(provider);
-        localStorage.setItem('providers', JSON.stringify(providers));
-        this.router.navigate(['/providers']);
-        // await trueID.methods.editProvider(
-        //     provider.address,
-        //     provider.name
-        // ).send({
-        //     gas: 2000000,
-        //     from: this.addresses[0]
-        // });
-
+    async onGetDetails() {
+        const result = await trueID.methods.getUserDetails("0x281055Afc982d96fAB65b3a49cAc8b878184Cb16").call();
+        this.user.fullName = result[0];
+        this.user.fatherName = result[1];
+        this.user.motherName = result[2];
+        this.user.contactAddress = result[3];
+        this.user.gender = result[4];
+        this.user.birthdate = result[5];
+        this.user.country = result[6];
     }
 
 }
