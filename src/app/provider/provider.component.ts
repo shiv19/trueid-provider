@@ -69,7 +69,7 @@ export class ProviderComponent implements OnInit {
     }
 
     async onGetDetails() {
-        const result = await trueID.methods.getUserDetails(this.userAddress).call();
+        const result = await trueID.methods.getUserDetails(this.userAddress).call({"from": this.addresses[0]});
         this.user.fullName = result[0];
         this.user.fatherName = result[1];
         this.user.motherName = result[2];
