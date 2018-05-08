@@ -52,13 +52,28 @@
             <div class="col-md-12 mb-3">
                 <p>Get User Details by clicking the button below</p>
                 <button class="btn btn-primary" (click)="onGetDetails()" type="button">Get Details</button>
-                <p>Name: {{ user.fullName }}</p>
-                <p>Gender: {{ user.gender }}</p>
-                <p>Father Name: {{ user.fatherName }}</p>
-                <p>Mother Name: {{ user.motherName }}</p>
-                <p>Address: {{ user.contactAddress }}</p>
-                <p>Birthdate: {{ user.birthdate }}</p>
-                <p>Country: {{ user.country }}</p>
+                <table style="margin-top: 1em;" *ngIf="user.fullName" class="table table-bordered table-hover">
+                    <thead>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Father Name</th>
+                        <th>Mother Name</th>
+                        <th>Address</th>
+                        <th>Birthdate</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ user.fullName }}</td>
+                            <td>{{ user.gender }}</td>
+                            <td>{{ user.fatherName }}</td>
+                            <td>{{ user.motherName }}</td>
+                            <td>{{ user.contactAddress }}</td>
+                            <td>{{ user.birthdate }}</td>
+                            <td>{{ user.country }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </form>

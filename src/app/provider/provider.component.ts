@@ -25,7 +25,7 @@ export class ProviderComponent implements OnInit {
 
     addresses: any;
 
-    user: any;
+    user: any = {};
 
     constructor(private router: Router) {}
 
@@ -69,7 +69,7 @@ export class ProviderComponent implements OnInit {
     }
 
     async onGetDetails() {
-        const result = await trueID.methods.getUserDetails("0x281055Afc982d96fAB65b3a49cAc8b878184Cb16").call();
+        const result = await trueID.methods.getUserDetails(this.userAddress).call();
         this.user.fullName = result[0];
         this.user.fatherName = result[1];
         this.user.motherName = result[2];
